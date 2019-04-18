@@ -15,7 +15,7 @@ class SubjectForm(forms.ModelForm):
 
     title = forms.CharField(help_text="You can mention other members in your post i.e <b>u/username</b>")
     body = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), required=False)
-    board = forms.ModelChoiceField(queryset=Board.objects.all())
+    board = forms.ModelChoiceField(queryset=Board.objects.all(), label='Club')
 
     def __init__(self, *args, **kwargs):
         """
@@ -28,7 +28,7 @@ class SubjectForm(forms.ModelForm):
             subscribed_boards = user.subscribed_boards.all()
             self.fields['board'].queryset = subscribed_boards
             if not subscribed_boards:
-                self.fields['board'].help_text = "You need to <b>subscribe</b> a board to post in it."
+                self.fields['board'].help_text = "You need to <b>subscribe</b> a club to post in it."
 
     class Meta:
         model = Subject
