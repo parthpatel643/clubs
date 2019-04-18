@@ -16,15 +16,15 @@
     }
 </style>
 <div class="container" id="boards_container">
-  <h3 class="text-muted">Subscribed Boards</h3>
+  <h3 class="text-muted">Subscribed Clubs</h3>
   {% for board in boards_list %}
     <a href="{{ board.get_absolute_url }}">{{ board.title }}</a>
   {% empty %}
-    <h5>You have not <b>subscribed</b> any boards yet.</h5>
+    <h5>You have not <b>subscribed</b> any clubs yet.</h5>
   {% endfor %}
   <p>
-  <a href="{% url 'view_all_boards' %}" class="btn btn-sm btn-primary">Discover boards</a>
-  <a href="{% url 'user_created_boards' user.username %}" class="btn btn-sm btn-primary">My boards</a>
+  <a href="{% url 'view_all_boards' %}" class="btn btn-sm btn-primary">Discover clubs</a>
+  <a href="{% url 'user_created_boards' user.username %}" class="btn btn-sm btn-primary">My clubs</a>
   </p>
 </div>
 

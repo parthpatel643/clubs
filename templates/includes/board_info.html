@@ -10,7 +10,7 @@
     {% endif %}
   </div>
   <ul class="list-group list-group-flush" style="font-size:14px;">
-    <li class="list-group-item text-center text-muted">Board Info</li>
+    <li class="list-group-item text-center text-muted">Club Info</li>
     <li class="list-group-item"><b>Title: </b>{{board.title}}</li>
     <li class="list-group-item"><b>Description: </b>{{board.description}}</li>
     <li class="list-group-item"><b>Total Posts: </b>{{board.submitted_subjects.count}}</li>
@@ -24,9 +24,9 @@
     {# ONLY ADMINS CAN VIEW THESE OPTIONS #}
     {% if admins %}
       {% if request.user in admins %}
-        <li class="list-group-item text-center text-muted">Board Controls</li>
+        <li class="list-group-item text-center text-muted">Club Controls</li>
         <li class="list-group-item"><b>Reports: </b><a href="{% url 'show_reports' board.slug %}" title="View reports about subjects and comments">View all reports</a></li>
-        <li class="list-group-item"><b>Edit board: </b><a href="{% url 'edit_board_cover' board.slug %}" title="Change the cover of this board">Change Cover</a></li>
+        <li class="list-group-item"><b>Edit Club: </b><a href="{% url 'edit_board_cover' board.slug %}" title="Change the cover of this board">Change Cover</a></li>
         <li class="list-group-item"><b>Banned Users: </b><a href="{% url 'banned_users' board.slug %}">View all banned users</a></li>
       {% endif %}
     {% endif %}

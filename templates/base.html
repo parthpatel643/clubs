@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     {% block title %}
-      <title>Elmer - A social network inspired by reddit</title>
+      <title>Clubs - A social network inspired by reddit</title>
     {% endblock %}
 
     {% include "meta.html" %}
@@ -58,7 +58,7 @@
               {% include "includes/board_info.html" %}
             {% else %}
               <a href="{% url 'new_subject' %}" class="btn btn-primary btn-block mt-4 cta_btn">CREATE POST</a>
-              <a href="{% url 'new_board' %}" class="btn btn-outline-primary btn-block mt-2 cta_btn">CREATE BOARD</a>
+              <a href="{% url 'new_board' %}" class="btn btn-outline-primary btn-block mt-2 cta_btn">CREATE CLUB</a>
               {% if request.user.is_authenticated %}
                 {% show_active_threads request.user %}
               {% endif %}

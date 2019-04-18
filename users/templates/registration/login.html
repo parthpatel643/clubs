@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}<title>Login | Elmer</title>{% endblock %}
+{% block title %}<title>Login | Clubs</title>{% endblock %}
 
 {% block form_content %}
-{% include "includes/page_heading.html" with text="Login to Elmer" %}
+{% include "includes/page_heading.html" with text="Login to Clubs" %}
 
 <form action="{% url 'login' %}" method="post">
   {% csrf_token %}

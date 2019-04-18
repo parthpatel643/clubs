@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load humanize %}
 
-{% block title %}<title>{{user.profile.screen_name}} | Elmer</title>{% endblock %}
+{% block title %}<title>{{user.profile.screen_name}} | Clubs</title>{% endblock %}
 
 {% block content %}
 
@@ -80,9 +80,9 @@
     {% endifequal %}
 
     </h4>
-    <p class="card-text"><strong>{{user.inspected_boards.count}}</strong> boards created.</p>
+    <p class="card-text"><strong>{{user.inspected_boards.count}}</strong> clubs created.</p>
     <p class="card-text"><strong>{{user.posted_subjects.count}}</strong> subjects posted.</p>
-    <p class="card-text"><strong>{{user.subscribed_boards.count}}</strong> boards subscribed.</p>
+    <p class="card-text"><strong>{{user.subscribed_boards.count}}</strong> clubs subscribed.</p>
     <p class="card-text">Member since <span title="{{ user.profile.member_since|date:"D d M Y" }} | {{ user.profile.member_since|time:"H:i:s" }}">{{ user.profile.member_since|date:"M d Y" }}</span></p>
     <br>
     <p id="profile_user_links" style="text-align:center;"><a href="{% url 'user_subscription_list' user.username %}" class="card-link">View subscription list</a><span> &middot; </span>
