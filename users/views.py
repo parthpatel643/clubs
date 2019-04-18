@@ -40,17 +40,17 @@ def register_user(request):
                 'user_form': user_form, 'form_filling': form_filling
             })
         else:
-            """ Begin reCAPTCHA validation """
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            data = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-            result = r.json()
-            """ End reCAPTCHA validation """
-
-            if result['success']:
+            # """ Begin reCAPTCHA validation """
+            # recaptcha_response = request.POST.get('g-recaptcha-response')
+            # data = {
+            #     'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            #     'response': recaptcha_response
+            # }
+            # r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+            # result = r.json()
+            # """ End reCAPTCHA validation """
+            #
+            # if result['success']:
                 new_user = user_form.save(commit=False)
                 new_user.set_password(user_form.cleaned_data['password'])
                 new_user.save()

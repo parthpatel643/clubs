@@ -9,7 +9,7 @@
 <form action="{% url 'signup' %}" method="post" data-check-username-url="{% url 'check_username' %}">
   {% csrf_token %}
   {{ user_form|crispy }}
-  <div class="g-recaptcha mb-4" data-sitekey="6LcxazUUAAAAAJstEHfmrSDE5QFqSrPUHqozW9XQ"></div>
+<!--  <div class="g-recaptcha mb-4" data-sitekey="6LcxazUUAAAAAJstEHfmrSDE5QFqSrPUHqozW9XQ"></div>-->
   <button type="submit" class="btn btn-success btn-block">Sign Up</button>
   <small class="form-text text-muted text-center">
     By signing up, you agree to our <a href="/legal/terms/">terms of service</a> &amp; <a href="/legal/privacy/">privacy policy</a>.

@@ -51,7 +51,7 @@ class HomePageView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Show Sign Up CTA if user is not logged in.
-        context['signup_quote'] = True
+        context['signup_quote'] = False
         return context
 
 
