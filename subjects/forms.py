@@ -28,7 +28,7 @@ class SubjectForm(forms.ModelForm):
             subscribed_boards = user.subscribed_boards.all()
             self.fields['board'].queryset = subscribed_boards
             if not subscribed_boards:
-                self.fields['board'].help_text = "You need to <b>subscribe</b> a board to post in it."
+                self.fields['board'].help_text = "You need to <b>subscribe</b> a club to post in it."
 
     class Meta:
         model = Subject
