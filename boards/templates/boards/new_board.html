@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}<title>Create Board | Elmer</title>{% endblock %}
+{% block title %}<title>Create Club</title>{% endblock %}
 
 {% block form_content %}
-{% include "includes/page_heading.html" with text="Create Board" %}
+{% include "includes/page_heading.html" with text="Create Club" %}
 
 <form action="{% url 'new_board' %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}

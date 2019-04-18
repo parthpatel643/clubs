@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}<title>Subscription List | Elmer</title>{% endblock %}
+{% block title %}<title>Subscription List | Clubs</title>{% endblock %}
 
 {% block content %}
 
 {% include "includes/page_heading.html" with text="Subscription List" %}
 <div class="alert alert-light text-center" role="alert">
-  Subscribe interesting boards to populate your home feed with interesting subjects.
+  Subscribe interesting clubs to populate your home feed with interesting subjects.
 </div>
 {% if subscriptions %}
   {% include "includes/partial_board.html" with boards=subscriptions %}
@@ -14,7 +14,7 @@
   <div class="card p-4 my-4 mx-0">
     <h6 class="text-center">No Subscriptions Found</h6>
     <div style="margin:0 auto;">
-    <p class="text-muted">You have not subscribed any boards yet.</p>
+    <p class="text-muted">You have not subscribed any clubs yet.</p>
     </div>
   </div>
 {% endif %}

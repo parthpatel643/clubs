@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}<title>Subscribe Boards | Elmer</title>{% endblock %}
+{% block title %}<title>Subscribe | Clubs</title>{% endblock %}
 
 {% block content %}
 
-{% include "includes/page_heading.html" with text="Subscribe Boards" %}
+{% include "includes/page_heading.html" with text="Subscribe Clubs" %}
 <div class="alert alert-light text-center" role="alert">
-  Click the <span class="font-weight-bold">Subscribe</span> button to populate your home feed with interesting board's subjects.
+  Click the <span class="font-weight-bold">Subscribe</span> button to populate your home feed with interesting club's subjects.
 </div>
 {% if boards %}
   {% include "includes/partial_board.html" with boards=boards %}
 {% else %}
   <div class="card p-4 my-4 mx-0">
-    <h6 class="text-center">No Boards Found</h6>
+    <h6 class="text-center">No Clubs Found</h6>
     <div style="margin:0 auto;">
-    <p class="text-muted">There are no boards created yet.</p>
+    <p class="text-muted">There are no clubs created yet.</p>
     </div>
   </div>
 {% endif %}

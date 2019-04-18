@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %}<title>Change Your Board Cover | Elmer</title>{% endblock %}
+{% block title %}<title>Change Your Club Cover</title>{% endblock %}
 
 
 {% block form_content %}
 
-{% include "includes/page_heading.html" with text="Change Your Board Cover" %}
+{% include "includes/page_heading.html" with text="Change Your Club Cover" %}
 {% if board_form.errors %}
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
     {{board_form.errors}}
