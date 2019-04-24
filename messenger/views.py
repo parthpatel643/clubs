@@ -9,6 +9,21 @@ from mysite.decorators import ajax_required
 
 from .models import Message
 
+@login_required
+def club_chat(request):
+    """
+    Displays an inbox page of user.
+    """
+    conversations = Message.get_conversations(user=request.user)
+    users_list = request.user.profile.contact_list.all().filter(is_active=True)
+
+    never_send_msg = True
+
+    return render(request, 'messenger/inbox.html', {
+        'conversations': conversations,
+        'users_list': users_list,
+        'never_send_msg': never_send_msg
+    })
 
 @login_required
 def inbox(request):

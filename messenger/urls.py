@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^load_new_messages/$', views.load_new_messages, name='load_new_messages'),
     url(r'^load_last_twenty_messages/$', views.load_last_twenty_messages, name='load_last_twenty_messages'),
     url(r'^(?P<username>[^/]+)/$', views.messages, name='messages'),
+    url(r'^$',views.club_chat, name='club_chat'),
 ]
