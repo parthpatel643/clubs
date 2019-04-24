@@ -17,7 +17,7 @@ from utils import image_compression
 from .decorators import user_is_subject_author
 from .forms import SubjectForm
 from .models import Subject
-
+import logging
 
 def get_trending_subjects():
     try:
@@ -42,6 +42,7 @@ class HomePageView(ListView):
     """
     Basic ListView implementation to call the latest subjects list.
     """
+
     model = Subject
     queryset = get_home_subjects()
     paginate_by = 15
@@ -90,9 +91,13 @@ def subject_detail(request, board, subject):
     """
     Displays the subject details and handles comment action.
     """
+
     subject = get_object_or_404(Subject,
                                 board__slug=board,
                                 slug=subject)
+    print('******************************')
+    print('subject acquired!!')
+    print('******************************')
     comments = subject.comments.filter(active=True)
     board = subject.board
     bv = True
