@@ -15,7 +15,7 @@ class Notification(models.Model):
         ('follow', 'Followed by someone'),
         ('sent_msg_request', 'Sent a Message Request'),
         ('confirmed_msg_request', 'Sent a Message Request'),
-        ('msg_to_all', 'Sent a Message To All'),
+        ('notify_all', 'Sent a Notification To Everyone'),
     )
 
     Actor = models.ForeignKey(User, related_name='c_acts', on_delete=models.CASCADE)
@@ -24,6 +24,7 @@ class Notification(models.Model):
     notif_type = models.CharField(
         max_length=500, choices=NOTIF_CHOICES, default='Comment on Subject'
     )
+    notif_message = models.CharField(max_length=500, default="None")
     is_read = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -54,9 +55,9 @@ class Notification(models.Model):
             return '{} accepted your message request.'.format(
                 self.Actor.profile.screen_name()
             )
-        elif self.notif_type == 'msg_to_all':
-            return '{} sent your message.'.format(
-                self.Actor.profile.screen_name()
+        elif self.notif_type == 'notify_all':
+            return '{}: {}'.format(
+                self.Actor.profile.screen_name(), self.notif_message
             )
         else:
             return '{} mentioned you in his comment on subject \"{}\".'.format(

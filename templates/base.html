@@ -57,7 +57,7 @@
             {% if bv %}
               <!-- Allowing below two options only if user is subscribed -->
               {% if board in request.user.subscribed_boards.all %}
-                <a href="{% url 'new_message_all' %}" class="btn btn-primary btn-block mt-4 cta_btn">MESSAGE TO ALL</a>
+                <a href="{% url 'notify_all' %}" class="btn btn-primary btn-block mt-4 cta_btn">NOTIFY ALL</a>
                 <a href="{% url 'club_chat' %}" class="btn btn-outline-primary btn-block mt-2 cta_btn">CLUB CHAT</a>
               {% endif %}
 

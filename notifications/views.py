@@ -8,12 +8,12 @@ from django.db import OperationalError
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-
+from boards.models import Board
 import requests
 
 from mysite.decorators import ajax_required
 
-from .forms import SubjectForm
+from .forms import NotificationForm
 from .models import Notification
 
 
@@ -35,57 +35,34 @@ class ActivitiesPageView(LoginRequiredMixin, ListView):
 
 
 @login_required
-def new_message_all(request):
+def notify_all(request):
     """
-    Displays a form & handle action for creating new subject.
+    Displays a form & handle action for creating new notification.
     """
-    subject_form = SubjectForm(**{'user': request.user})
+    notif_form = NotificationForm(**{'user': request.user})
 
     if request.method == 'POST':
-        subject_form = SubjectForm(request.POST, request.FILES)
-        if subject_form.is_valid():
-            new_message_all = subject_form.save(commit=False)
-            author = request.user
-            new_message_all.author = author
-            new_message_all.save()
-            new_message_all.points.add(author)
-            new_message_all.save()
+        notif_form = NotificationForm(request.POST, request.FILES)
+        if notif_form.is_valid():
+            club = Board.objects.filter(title=notif_form.cleaned_data['board'])
+            print('*' * 20)
+            users = club[0].subscribers.all()
+            print('*' * 20)
 
-            # Checks if someone is mentioned in the subject
-            words = new_message_all.title + ' ' + new_message_all.body
-            words = words.split(" ")
-            names_list = []
-            for word in words:
-
-                # if first two letter of the word is "u/" then the rest of the word
-                # will be treated as a username
-
-                if word[:2] == "u/":
-                    u = word[2:]
-                    try:
-                        user = User.objects.get(username=u)
-                        if user not in names_list:
-                            new_message_all.mentioned.add(user)
-                            if request.user is not user:
-                                Notification.objects.create(
-                                    Actor=new_message_all.author,
-                                    Object=new_message_all,
-                                    Target=user,
-                                    notif_type='subject_mentioned'
-                                )
-                            names_list.append(user)
-                    except:  # noqa: E722
-                        pass
-
-            if new_message_all.photo:
-                image_compression(new_message_all.photo.name)
-
-            return redirect(new_message_all.get_absolute_url())
+            for user in users:
+                Notification.objects.create(
+                    Actor=request.user,
+                    Target=user,
+                    notif_type='notify_all',
+                    notif_message=notif_form.cleaned_data['title']
+                )
+            return redirect('/')
 
     form_filling = True
 
-    return render(request, 'notifications/new_message_all.html', {
-        'subject_form': subject_form, 'form_filling': form_filling
+
+    return render(request, 'notifications/notify_all.html', {
+        'notif_form': notif_form, 'form_filling': form_filling
     })
 
 

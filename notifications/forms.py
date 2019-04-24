@@ -5,7 +5,7 @@ from boards.models import Board
 from .models import Notification
 
 
-class SubjectForm(forms.ModelForm):
+class NotificationForm(forms.ModelForm):
     """
     Form that handles subject data.
     """
@@ -14,7 +14,6 @@ class SubjectForm(forms.ModelForm):
         return self.user.subscribed_boards
 
     title = forms.CharField(help_text="You can mention other members in your message i.e <b>u/username</b>", label='Message')
-    # body = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), required=False)
     board = forms.ModelChoiceField(queryset=Board.objects.all(), label='Club')
 
     def __init__(self, *args, **kwargs):
@@ -23,7 +22,7 @@ class SubjectForm(forms.ModelForm):
         user's subscribed boards.
         """
         user = kwargs.pop('user', None)
-        super(SubjectForm, self).__init__(*args, **kwargs)
+        super(NotificationForm, self).__init__(*args, **kwargs)
         if user is not None:
             subscribed_boards = user.subscribed_boards.all()
             self.fields['board'].queryset = subscribed_boards
