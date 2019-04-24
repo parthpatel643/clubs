@@ -15,6 +15,7 @@ class Notification(models.Model):
         ('follow', 'Followed by someone'),
         ('sent_msg_request', 'Sent a Message Request'),
         ('confirmed_msg_request', 'Sent a Message Request'),
+        ('msg_to_all', 'Sent a Message To All'),
     )
 
     Actor = models.ForeignKey(User, related_name='c_acts', on_delete=models.CASCADE)
@@ -51,6 +52,10 @@ class Notification(models.Model):
             )
         elif self.notif_type == 'confirmed_msg_request':
             return '{} accepted your message request.'.format(
+                self.Actor.profile.screen_name()
+            )
+        elif self.notif_type == 'msg_to_all':
+            return '{} sent your message.'.format(
                 self.Actor.profile.screen_name()
             )
         else:

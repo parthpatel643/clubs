@@ -93,6 +93,7 @@ urlpatterns = [
     re_path(r'^u/friends/requests/$', users_views.all_message_requests, name='all_message_requests'),
     re_path(r'^activities/$', notifications_views.ActivitiesPageView.as_view(), name='activities'),
     re_path(r'^activities/check/$', notifications_views.check_activities, name='check_activities'),
+    re_path(r'^new_message_all/$',notifications_views.new_message_all, name='new_message_all'),
 
     # login / logout urls
     re_path(r'^login/$',
