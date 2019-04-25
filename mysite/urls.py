@@ -32,6 +32,7 @@ import reports.views as reports_views
 import search.views as search_views
 import subjects.views as subjects_views
 import users.views as users_views
+import messenger.views as message_views
 from subjects.sitemaps import SubjectSitemap
 
 sitemaps = {
@@ -163,6 +164,7 @@ urlpatterns = [
         comments_views.deactivate_comment,
         name='deactivate_comment'),
     re_path(r'^messages/', include('messenger.urls')),
+    re_path(r'^club/messages/(?P<board>[-\w]+)$',message_views.club_chat, name='club_chat'),
 
     # api urls
     re_path(r'^api/auth/token/obtain/', obtain_jwt_token),

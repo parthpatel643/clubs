@@ -3,27 +3,44 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from mysite.decorators import ajax_required
 
 from .models import Message
+from boards.models import Board
+
 
 @login_required
-def club_chat(request):
+def club_chat(request, board):
     """
-    Displays an inbox page of user.
+    Displays message threads of user.
     """
-    conversations = Message.get_conversations(user=request.user)
-    users_list = request.user.profile.contact_list.all().filter(is_active=True)
+    username='parth'
+    user = User.objects.get(username=username)
+    club = get_object_or_404(Board, slug=board)
 
-    never_send_msg = True
+    if request.user in user.profile.contact_list.all():
+        conversations = Message.get_conversations(user=request.user)
+        users_list = request.user.profile.contact_list.all().filter(is_active=True)
+        active_conversation = username
+        chat_msgs = Message.objects.filter(user=request.user,
+                                          conversation__username=username)
+        chat_msgs.update(is_read=True)
 
-    return render(request, 'messenger/inbox.html', {
-        'conversations': conversations,
-        'users_list': users_list,
-        'never_send_msg': never_send_msg
-    })
+        for conversation in conversations:
+            if conversation['user'].username == username:
+                conversation['unread'] = 0
+
+        return render(request, 'messenger/club_chat.html', {
+            'chat_msgs': chat_msgs,
+            'conversations': conversations,
+            'users_list': users_list,
+            'active': active_conversation
+        })
+    else:
+        return HttpResponse('')
+
 
 @login_required
 def inbox(request):
