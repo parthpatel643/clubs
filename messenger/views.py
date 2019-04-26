@@ -7,46 +7,16 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from mysite.decorators import ajax_required
 
-from .models import Message
+from .models import Message, Chats
 from boards.models import Board
-
-
-@login_required
-def club_chat(request, board):
-    """
-    Displays message threads of user.
-    """
-    username='parth'
-    user = User.objects.get(username=username)
-    club = get_object_or_404(Board, slug=board)
-
-    if request.user in user.profile.contact_list.all():
-        conversations = Message.get_conversations(user=request.user)
-        users_list = request.user.profile.contact_list.all().filter(is_active=True)
-        active_conversation = username
-        chat_msgs = Message.objects.filter(user=request.user,
-                                          conversation__username=username)
-        chat_msgs.update(is_read=True)
-
-        for conversation in conversations:
-            if conversation['user'].username == username:
-                conversation['unread'] = 0
-
-        return render(request, 'messenger/club_chat.html', {
-            'chat_msgs': chat_msgs,
-            'conversations': conversations,
-            'users_list': users_list,
-            'active': active_conversation
-        })
-    else:
-        return HttpResponse('')
-
 
 @login_required
 def inbox(request):
     """
     Displays an inbox page of user.
     """
+
+
     conversations = Message.get_conversations(user=request.user)
     users_list = request.user.profile.contact_list.all().filter(is_active=True)
 
@@ -65,7 +35,6 @@ def messages(request, username):
     Displays message threads of user.
     """
     user = User.objects.get(username=username)
-
     if request.user in user.profile.contact_list.all():
         conversations = Message.get_conversations(user=request.user)
         users_list = request.user.profile.contact_list.all().filter(is_active=True)
@@ -94,6 +63,7 @@ def load_new_messages(request):
     """
     Loads new messages via ajax.
     """
+
     last_message_id = request.GET.get('last_message_id')
     username = request.GET.get('username')
     user = User.objects.get(username=username)

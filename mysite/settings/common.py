@@ -1,7 +1,7 @@
 # Settings for elmer (A social network inspired by reddit).
 import datetime
 import os
-
+from django.utils.crypto import get_random_string
 from django.contrib.messages import constants as messages
 from django.urls import reverse_lazy
 
@@ -10,8 +10,9 @@ from decouple import Csv, config
 # The full path to the repository root.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+SECRET_KEY = get_random_string(50, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
 # Django settings
-SECRET_KEY = config('SECRET_KEY')
+
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
@@ -116,6 +117,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+# django-crispy-forms settings
 # django-crispy-forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
