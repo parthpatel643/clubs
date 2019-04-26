@@ -7,39 +7,29 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from mysite.decorators import ajax_required
 
-from .models import Message
+from .models import Message, Chats
 from boards.models import Board
 
 
 @login_required
 def club_chat(request, board):
     """
-    Displays message threads of user.
+    Displays message threads of club.
     """
-    username='parth'
-    user = User.objects.get(username=username)
     club = get_object_or_404(Board, slug=board)
 
-    if request.user in user.profile.contact_list.all():
-        conversations = Message.get_conversations(user=request.user)
-        users_list = request.user.profile.contact_list.all().filter(is_active=True)
-        active_conversation = username
-        chat_msgs = Message.objects.filter(user=request.user,
-                                          conversation__username=username)
-        chat_msgs.update(is_read=True)
-
-        for conversation in conversations:
-            if conversation['user'].username == username:
-                conversation['unread'] = 0
-
-        return render(request, 'messenger/club_chat.html', {
-            'chat_msgs': chat_msgs,
-            'conversations': conversations,
-            'users_list': users_list,
-            'active': active_conversation
+    # if club in request.user.subscribed_boards.all():
+    chat_msgs = Chats.objects.filter(club=club)
+    print('*' * 20)
+    print(chat_msgs)
+    print('*' * 20)
+    # users_list = request.user.profile.contact_list.all().filter(is_active=True)
+    return render(request, 'messenger/club_chat.html', {
+        'chat_msgs': chat_msgs,
+        # 'users_list': users_list
         })
-    else:
-        return HttpResponse('')
+    # else:
+    #     return HttpResponse('')
 
 
 @login_required
@@ -73,7 +63,9 @@ def messages(request, username):
         chat_msgs = Message.objects.filter(user=request.user,
                                           conversation__username=username)
         chat_msgs.update(is_read=True)
-
+        print('*' * 20)
+        print(chat_msgs)
+        print('*' * 20)
         for conversation in conversations:
             if conversation['user'].username == username:
                 conversation['unread'] = 0
