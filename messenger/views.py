@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from mysite.decorators import ajax_required
 
-from .models import Message, Chats
+from .models import Message
 from boards.models import Board
 
 @login_required

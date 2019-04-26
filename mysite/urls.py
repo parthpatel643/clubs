@@ -164,7 +164,7 @@ urlpatterns = [
         comments_views.deactivate_comment,
         name='deactivate_comment'),
     re_path(r'^messages/', include('messenger.urls')),
-    re_path(r'^club/messages/(?P<board>[-\w]+)$',message_views.club_chat, name='club_chat'),
+    # re_path(r'^club/messages/(?P<board>[-\w]+)$',message_views.club_chat, name='club_chat'),
 
     # api urls
     re_path(r'^api/auth/token/obtain/', obtain_jwt_token),
