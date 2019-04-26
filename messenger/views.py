@@ -82,6 +82,23 @@ def messages(request, username):
 
 @login_required
 @ajax_required
+def load_new_messages_club(request):
+    """
+    Loads new messages via ajax.
+    """
+    last_message_id = request.GET.get('last_message_id')
+    username = request.GET.get('username')
+    club = get_object_or_404(Board, slug=board)
+
+    chat_msgs = Chats.objects.filter(club=club,user=request.user,
+                                       id__gt=last_message_id)
+    if chat_msgs:
+        return render(request, 'messenger/includes/partial_load_more_messages_club.html', {'chat_msgs': chat_msgs})
+    else:
+        return HttpResponse('')
+
+@login_required
+@ajax_required
 def load_new_messages(request):
     """
     Loads new messages via ajax.

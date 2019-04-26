@@ -7,7 +7,7 @@
     {% if chat_msgs %}
     <ul id="msg-container" style="padding:0px;">
       {% for chat_msg in chat_msgs %}
-        {% include 'messenger/includes/partial_message.html' %}
+        {% include 'messenger/includes/partial_message_club.html' %}
       {% endfor %}
     </ul>
 
@@ -33,7 +33,7 @@
           }
         });
       };
-      load_new_messages();
+      load_new_messages_club();
     });
     </script>
     {% else %}
