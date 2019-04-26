@@ -43,7 +43,8 @@ class Chats(models.Model):
 
         return current_user_message
 
-    @staticmethod
+
+@staticmethod
     def get_conversations(club):
         """
         Returns a list of users having conversation with the `user` passed in.
