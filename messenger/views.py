@@ -26,8 +26,8 @@ def club_chat(request, board):
     # users_list = request.user.profile.contact_list.all().filter(is_active=True)
     return render(request, 'messenger/club_chat.html', {
         'chat_msgs': chat_msgs,
-        # 'users_list': users_list
-        })
+        'active': club
+    })
     # else:
     #     return HttpResponse('')
 
@@ -61,11 +61,11 @@ def messages(request, username):
         users_list = request.user.profile.contact_list.all().filter(is_active=True)
         active_conversation = username
         chat_msgs = Message.objects.filter(user=request.user,
-                                          conversation__username=username)
+                                           conversation__username=username)
         chat_msgs.update(is_read=True)
-        print('*' * 20)
-        print(chat_msgs)
-        print('*' * 20)
+        # print('*' * 20)
+        # print(chat_msgs)
+        # print('*' * 20)
         for conversation in conversations:
             if conversation['user'].username == username:
                 conversation['unread'] = 0
@@ -87,16 +87,13 @@ def load_new_messages_club(request):
     Loads new messages via ajax.
     """
     last_message_id = request.GET.get('last_message_id')
-    username = request.GET.get('username')
-    user = User.objects.get(username=username)
 
-    if request.user in user.profile.contact_list.all():
-        chat_msgs = Chats.objects.filter(user=request.user,
-                                           id__gt=last_message_id)
-        if chat_msgs:
-            return render(request, 'messenger/includes/partial_load_more_messages_club.html', {'chat_msgs': chat_msgs})
-        else:
-            return HttpResponse('')
+    chat_msgs = Chats.objects.filter(user=request.user,
+                                     id__gt=last_message_id)
+    if chat_msgs:
+        return render(request, 'messenger/includes/partial_load_more_messages_club.html', {'chat_msgs': chat_msgs})
+    else:
+        return HttpResponse('')
 
 
 @login_required
@@ -128,8 +125,8 @@ def load_last_twenty_messages(request):
     user = User.objects.get(username=username)
     if request.user in user.profile.contact_list.all():
         chat_msgs = Message.objects.filter(user=request.user,
-                                          conversation__username=username,
-                                          id__lt=load_from_msg_id)
+                                           conversation__username=username,
+                                           id__lt=load_from_msg_id)
         if chat_msgs:
             chat_msgs.update(is_read=True)
             return render(request, 'messenger/includes/partial_load_more_messages.html', {'chat_msgs': chat_msgs})
@@ -146,19 +143,20 @@ def delete(request):
 @login_required
 @ajax_required
 def send_club(request):
-	"""
-	Handles the message send action.
-	"""
-	if request.method == 'POST':
-		user = request.user
-		club='Programming'
-		message = request.POST.get('message')
-		if len(message.strip()) == 0:
-			return HttpResponse()
-		chat_msg = Chats.send_message(user, club, message)
-		return render(request, 'messenger/includes/partial_message_club.html', {'chat_msg': chat_msg})
-	else:
-		return HttpResponseBadRequest()
+    if request.method == 'POST':
+        user = request.user
+        club = request.POST.get('to')
+        club = Board.objects.filter(title=club)
+        message = request.POST.get('message')
+        if len(message.strip()) == 0:
+            return HttpResponse()
+        chat_msg = Chats.send_message(user, club[0], message)
+        return render(request, 'messenger/includes/partial_message_club.html', {'chat_msg': chat_msg})
+    else:
+        print('*' * 20)
+        print("BAD REQUEST ")
+        print('*' * 20)
+        return HttpResponseBadRequest()
 
 
 @login_required
