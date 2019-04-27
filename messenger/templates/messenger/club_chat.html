@@ -14,11 +14,11 @@
     <script type="text/javascript">
     // Load new messages
     $(document).ready(function(){
-      function load_new_messages() {
+      function load_new_messages_club() {
         var $last_message_id=$("#msg-container li:last-child").attr('message-id');
         var msg_container = $("#msg-container");
         $.ajax({
-          url: '{% url "load_new_messages" %}',
+          url: '{% url "load_new_messages_club" %}',
           data: {
             'username': '{{ active }}',
             'last_message_id': $last_message_id,
@@ -26,10 +26,9 @@
           cache: false,
           success: function (data) {
             $(msg_container).append(data);
-            $('.conversation').scrollTop($('.conversation')[0].scrollHeight);
           },
           complete: function () {
-            window.setTimeout(load_new_messages, 2000); // refresh after 2 seconds
+            window.setTimeout(load_new_messages_club, 2000); // refresh after 2 seconds
           }
         });
       };
@@ -54,7 +53,7 @@
   </div>
   <div class="chat-box">
     <img src="{{ user.profile.get_picture }}" class="picture">
-    <form role="form" method="post" action="{% url 'send_message' %}" id="send">
+    <form role="form" method="post" action="{% url 'send_message_club' %}" id="send">
       {% csrf_token %}
       <input type="hidden" name="to" value="{{ active }}">
       <input class="form-control" type="text" name="message" placeholder="Type a message here" maxlength="1000" autocomplete="off" {% if never_send_msg %}disabled{% endif %}>

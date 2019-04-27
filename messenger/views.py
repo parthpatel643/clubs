@@ -88,14 +88,16 @@ def load_new_messages_club(request):
     """
     last_message_id = request.GET.get('last_message_id')
     username = request.GET.get('username')
-    club = get_object_or_404(Board, slug=board)
+    user = User.objects.get(username=username)
 
-    chat_msgs = Chats.objects.filter(club=club,user=request.user,
-                                       id__gt=last_message_id)
-    if chat_msgs:
-        return render(request, 'messenger/includes/partial_load_more_messages_club.html', {'chat_msgs': chat_msgs})
-    else:
-        return HttpResponse('')
+    if request.user in user.profile.contact_list.all():
+        chat_msgs = Chats.objects.filter(user=request.user,
+                                           id__gt=last_message_id)
+        if chat_msgs:
+            return render(request, 'messenger/includes/partial_load_more_messages_club.html', {'chat_msgs': chat_msgs})
+        else:
+            return HttpResponse('')
+
 
 @login_required
 @ajax_required
@@ -139,6 +141,24 @@ def load_last_twenty_messages(request):
 @ajax_required
 def delete(request):
     return HttpResponse()
+
+
+@login_required
+@ajax_required
+def send_club(request):
+	"""
+	Handles the message send action.
+	"""
+	if request.method == 'POST':
+		user = request.user
+		club='Programming'
+		message = request.POST.get('message')
+		if len(message.strip()) == 0:
+			return HttpResponse()
+		chat_msg = Chats.send_message(user, club, message)
+		return render(request, 'messenger/includes/partial_message_club.html', {'chat_msg': chat_msg})
+	else:
+		return HttpResponseBadRequest()
 
 
 @login_required
