@@ -62,12 +62,12 @@ def register_user(request):
 
                 msg_txt = """
                     <h4 class="alert-heading">
-                        Welcome to elmer!
+                        Welcome to Clubs!
                     </h4>
                     <p>
                         Thanks for joining our community. Start sharing your ideas by posting
-                        <a href="/new_post/" class="alert-link">new subject</a> or just create
-                        your own <a href="/new_board/" class="alert-link">new board</a>.
+                        <a href="/new_post/" class="alert-link">new post</a> or just create
+                        your own <a href="/new_board/" class="alert-link">new club</a>.
                     </p>
                     <hr>
                     <p class="mb-0">

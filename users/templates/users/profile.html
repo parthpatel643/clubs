@@ -88,10 +88,10 @@
     <p id="profile_user_links" style="text-align:center;"><a href="{% url 'user_subscription_list' user.username %}" class="card-link">View subscription list</a><span> &middot; </span>
     {% ifequal request.user user %}
     <a href="{% url 'profile_edit' %}" class="card-link">Edit profile</a><br><br>
-    <a href="{% url 'view_all_followers' %}" class="card-link">Followers</a><span> &middot; </span>
+    <!-- <a href="{% url 'view_all_followers' %}" class="card-link">Followers</a><span> &middot; </span>
     <a href="{% url 'view_following' %}" class="card-link">Following</a><br><br>
     <a href="{% url 'all_message_requests' %}" class="card-link">Message requests</a><span> &middot; </span>
-    <a href="{% url 'all_friends' %}" class="card-link">Contact list</a></p>
+    <a href="{% url 'all_friends' %}" class="card-link">Contact list</a></p> -->
     {% endifequal %}
   </div>
 </div>

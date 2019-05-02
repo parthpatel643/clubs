@@ -1,0 +1,44 @@
+{
+	"A": {
+		"features": [{
+				"name": "RollNo",
+				"condition": "",
+				"weight": 0
+			},
+			{
+				"name": "gateScore",
+				"condition": "decreasing",
+				"weight": 0.8
+			},
+			{
+				"name": "cpi",
+				"condition": "decreasing",
+				"weight": 1
+			},
+			{
+				"name": "workExp",
+				"condition": "decreasing",
+				"weight": 0.8
+			},
+			{
+				"name": "course_taken",
+				"condition": "matching_with_values",
+				"weight": 1
+			}
+		]
+	},
+	"B": {
+		"features": [{
+				"name": "fid",
+				"condition": "",
+				"weight": 0
+			},
+			{
+				"name": "courses",
+				"condition": "matching",
+				"weight": 1
+			}
+		]
+	},
+	"mapping" : {"course_taken":"courses"}
+}

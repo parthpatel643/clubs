@@ -57,18 +57,20 @@
             {% if bv %}
               <!-- Allowing below two options only if user is subscribed -->
               {% if board in request.user.subscribed_boards.all %}
+                <a href="{% url 'new_subject' %}" class="btn btn-outline-primary btn-block mt-2 cta_btn">CREATE POST</a>
                 <a href="{% url 'notify_all' %}" class="btn btn-primary btn-block mt-4 cta_btn">NOTIFY ALL</a>
                 <a href="{% url 'club_chat' board.slug %}" class="btn btn-outline-primary btn-block mt-2 cta_btn">CLUB CHAT</a>
               {% endif %}
 
               {% include "includes/board_info.html" %}
             {% else %}
+<!--              <a href="/mtech/analysis" class="btn btn-primary btn-block mt-4 cta_btn">Analytics</a>-->
               <a href="{% url 'new_subject' %}" class="btn btn-primary btn-block mt-4 cta_btn">CREATE POST</a>
               <a href="{% url 'new_board' %}" class="btn btn-outline-primary btn-block mt-2 cta_btn">CREATE CLUB</a>
-              {% if request.user.is_authenticated %}
-                {% show_active_threads request.user %}
-              {% endif %}
-              {% top_five_boards %}
+<!--              {% if request.user.is_authenticated %}  -->
+<!--                {% show_active_threads request.user %} -->
+<!--              {% endif %} -->
+<!--              {% top_five_boards %} -->
             {% endif %}
 
             {% include "includes/footer.html" %}
